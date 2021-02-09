@@ -27,33 +27,20 @@ func main() {
 	tokenString, err := token.SignedString(mySigningKey)
 
 	if err != nil {
-		fmt.Errorf("Something Went Wrong: %s", err.Error())
+		fmt.Println(fmt.Errorf("Something Went Wrong1: %s", err.Error()))
 	}
 
 	fmt.Println(string(tokenString))
 
 	// todo api
 	decodedToken, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf(("Invalid Signing Method"))
-		}
-
-		aud := ""
-		checkAudience := token.Claims.(jwt.MapClaims).VerifyAudience(aud, false)
-		if !checkAudience {
-			return nil, fmt.Errorf(("invalid aud"))
-		}
-		// verify iss claim
-		iss := "fusionauth.io"
-		checkIss := token.Claims.(jwt.MapClaims).VerifyIssuer(iss, false)
-		if !checkIss {
-			return nil, fmt.Errorf(("invalid iss"))
-		}
-
-		return token, nil
-
-	})
+		return mySigningKey, nil
+   	});
 
 	fmt.Println("")
-	fmt.Printf("%+v\n", decodedToken.Claims)
+        if err != nil {
+		fmt.Printf("Something Went Wrong: %s", err.Error())
+	} else {
+	  	fmt.Printf("%+v\n", decodedToken.Claims)
+	}
 }
