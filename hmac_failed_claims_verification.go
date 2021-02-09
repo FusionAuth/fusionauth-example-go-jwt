@@ -27,7 +27,7 @@ func main() {
 	tokenString, err := token.SignedString(mySigningKey)
 
 	if err != nil {
-		fmt.Println(fmt.Errorf("Something Went Wrong1: %s", err.Error()))
+		fmt.Println(fmt.Errorf("Something Went Wrong: %s", err.Error()))
 	}
 
 	fmt.Println(string(tokenString))
