@@ -18,7 +18,7 @@ func main() {
 	claims["aud"] = "238d4793-70de-4183-9707-48ed8ecd19d9"
 	claims["sub"] = "19016b73-3ffa-4b26-80d8-aa9287738677"
 	claims["iss"] = "fusionauth.io"
-	claims["exp"] = time.Now().Add(time.Minute * 5).Unix()
+	claims["exp"] = time.Now().Add(time.Minute * -5).Unix()
 	claims["name"] = "Dan Moore"
 	var roles [1]string
 	roles[0] = "RETRIEVE_TODOS"
@@ -40,8 +40,9 @@ func main() {
 		return mySigningKey, nil
 	})
 
-	if _, ok := decodedToken.Method.(*jwt.SigningMethodHMAC); !ok {
-		fmt.Println(fmt.Errorf(("Invalid Signing Method")))
+	if err != nil {
+		fmt.Printf("Something Went Wrong: %s", err.Error())
+		return
 	}
 
 	expectedAud := "238d4793-70de-4183-9707-48ed8ecd19d9"

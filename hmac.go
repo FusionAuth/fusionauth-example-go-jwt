@@ -39,6 +39,18 @@ func main() {
      		}
 		return mySigningKey, nil
    	});
+   	
+	if err != nil {
+		fmt.Printf("Something Went Wrong: %s", err.Error())
+		return
+	}
+
+
+	//checkExpiration := token.Claims.(jwt.MapClaims["exp"]) > time.Now()
+	//if !checkExpiration {
+		//fmt.Println("invalid exp")
+		//return
+	//}
 
 	fmt.Println("")
         if err != nil {

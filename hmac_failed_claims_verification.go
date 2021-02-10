@@ -40,10 +40,12 @@ func main() {
 		return mySigningKey, nil
 	})
 
-	if _, ok := decodedToken.Method.(*jwt.SigningMethodHMAC); !ok {
-		fmt.Println(fmt.Errorf(("Invalid Signing Method")))
+	if err != nil {
+		fmt.Printf("Something Went Wrong: %s", err.Error())
+		return
 	}
 
+	// verify aud claim
 	expectedAud := "238d4793-70de-4183-9707-48ed8ecd19d9"
 	checkAudience := token.Claims.(jwt.MapClaims).VerifyAudience(expectedAud, false)
 	if !checkAudience {
