@@ -6,6 +6,7 @@ This code uses the jwt-go library: https://github.com/dgrijalva/jwt-go and runs 
 * building a JWT with the 'rsa' algorithm
 * building a JWT with the 'hmac' algorithm but verifying additional claims
 * decoding an invalid JWT with the 'hmac' algorithm
+* decoding a JWT with the 'hmac' algorithm and the wrong key
 
 ## To install
 
