@@ -1,4 +1,4 @@
-# Ruby JWT Examples
+# Go JWT Examples
 
 This code uses the jwt-go library: https://github.com/dgrijalva/jwt-go and runs through a couple of different scenarios.
 
