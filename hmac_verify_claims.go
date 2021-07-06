@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt"
 	"time"
 )
 
@@ -18,7 +18,7 @@ func main() {
 	claims["aud"] = "238d4793-70de-4183-9707-48ed8ecd19d9"
 	claims["sub"] = "19016b73-3ffa-4b26-80d8-aa9287738677"
 	claims["iss"] = "fusionauth.io"
-	claims["exp"] = time.Now().Add(time.Minute * -5).Unix()
+	claims["exp"] = time.Now().Add(time.Minute * 5).Unix()
 	claims["name"] = "Dan Moore"
 	var roles [1]string
 	roles[0] = "RETRIEVE_TODOS"
