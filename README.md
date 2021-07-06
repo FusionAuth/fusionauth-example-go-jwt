@@ -1,6 +1,6 @@
 # Go JWT Examples
 
-This code uses the jwt-go library: https://github.com/dgrijalva/jwt-go and runs through a couple of different scenarios.
+This code uses the go jwt library: https://github.com/golang-jwt/jwt and runs through a couple of different scenarios.
 
 * building a JWT with the 'hmac' algorithm
 * building a JWT with the 'rsa' algorithm
