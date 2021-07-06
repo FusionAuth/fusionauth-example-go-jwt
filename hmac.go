@@ -39,6 +39,8 @@ func main() {
      		}
 		return mySigningKey, nil
    	});
+
+	// NEED TO CHECK CLAIMS, see other code examples
    	
 	if err != nil {
 		fmt.Printf("Something Went Wrong: %s", err.Error())

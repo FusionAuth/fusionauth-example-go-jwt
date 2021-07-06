@@ -43,6 +43,8 @@ func main() {
 		return &publicKey, nil
    	});
 
+	// TODO verify claims, look at other code examples for that.
+
 	fmt.Println("")
         if err != nil {
 		fmt.Printf("Something Went Wrong: %s", err.Error())
