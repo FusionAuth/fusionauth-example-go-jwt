@@ -20,8 +20,11 @@ func main() {
 	claims["iss"] = "fusionauth.io"
 	claims["exp"] = time.Now().Add(time.Minute * 5).Unix()
 	claims["name"] = "Dan Moore"
-	var roles [1]string
+
+	var roles [2]string
 	roles[0] = "RETRIEVE_TODOS"
+	roles[1] = "WRITE_TODOS"
+
 	claims["roles"] = roles
 
 	tokenString, err := token.SignedString(mySigningKey)
@@ -45,18 +48,27 @@ func main() {
 		return
 	}
 
-	expectedAud := "238d4793-70de-4183-9707-48ed8ecd19d9"
-	checkAudience := token.Claims.(jwt.MapClaims).VerifyAudience(expectedAud, false)
-	if !checkAudience {
-		fmt.Println("invalid aud")
-		return
-	}
-	// verify iss claim
-	expectedIss := "fusionauth.io"
-	checkIss := token.Claims.(jwt.MapClaims).VerifyIssuer(expectedIss, false)
-	if !checkIss {
-		fmt.Println("invalid iss")
-		return
+        if claims, ok := decodedToken.Claims.(jwt.MapClaims); ok && decodedToken.Valid {
+		// Valid looks at time based claims
+
+		// now check other claims
+		expectedAud := "238d4793-70de-4183-9707-48ed8ecd19d9"
+		checkAudience := claims.VerifyAudience(expectedAud, true)
+		if !checkAudience {
+			fmt.Println("invalid aud")
+			return
+		}
+	
+		// verify iss claim
+		expectedIss := "fusionauth.io"
+		checkIss := claims.VerifyIssuer(expectedIss, true)
+		if !checkIss {
+			fmt.Println("invalid iss")
+			return
+		}
+
+	} else {
+		fmt.Println(err)
 	}
 
 	fmt.Println("")
