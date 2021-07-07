@@ -69,6 +69,7 @@ func main() {
 
 	} else {
 		fmt.Println(err)
+		return
 	}
 
 	fmt.Println("")
