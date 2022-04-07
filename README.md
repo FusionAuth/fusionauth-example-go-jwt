@@ -7,6 +7,7 @@ This code uses the go jwt library: https://github.com/golang-jwt/jwt and runs th
 * building a JWT with the 'hmac' algorithm but verifying additional claims
 * decoding an invalid JWT with the 'hmac' algorithm
 * decoding a JWT with the 'hmac' algorithm and the wrong key
+* re-issuing an 'rsa' signed JWT with an 'hmac' algorithm
 
 ## To install
 
