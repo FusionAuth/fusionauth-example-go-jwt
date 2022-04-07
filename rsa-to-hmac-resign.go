@@ -1,17 +1,17 @@
 package main
 
 import (
+	"crypto/rand"
+	"crypto/rsa"
 	"fmt"
 	"github.com/golang-jwt/jwt"
 	"time"
-	"crypto/rsa"
-	"crypto/rand"
 )
 
 func main() {
 
 	privateKey, _ := rsa.GenerateKey(rand.Reader, 1024)
-        publicKey := privateKey.PublicKey
+	publicKey := privateKey.PublicKey
 
 	// generate token, presumably in an IdP or elsewhere
 	token := jwt.New(jwt.SigningMethodRS256)
@@ -38,28 +38,28 @@ func main() {
 	// receive token at the API gateway
 	decodedToken, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
-        		return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
-     		}
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
 		return &publicKey, nil
-   	});
+	})
 
-        if err != nil {
+	if err != nil {
 		fmt.Printf("Something Went Wrong: %s", err.Error())
 	}
 
-        // for real value, pull from secrets
+	// for real value, pull from secrets
 	var mySigningKey = []byte("hello gophers!!!")
 
 	hmacToken := jwt.New(jwt.SigningMethodHS256)
 	hmacClaims := hmacToken.Claims.(jwt.MapClaims)
-        for key, element := range decodedToken.Claims.(jwt.MapClaims) {
-          hmacClaims[key] = element
-        }
+	for key, element := range decodedToken.Claims.(jwt.MapClaims) {
+		hmacClaims[key] = element
+	}
 
-        // modify claims here if needed 
-        hmacClaims["exp"] = time.Now().Add(time.Second * 5).Unix()
-    
-        // sign JWT
+	// modify claims here if needed
+	hmacClaims["exp"] = time.Now().Add(time.Second * 5).Unix()
+
+	// sign JWT
 	hmacTokenString, err := hmacToken.SignedString(mySigningKey)
 
 	if err != nil {
