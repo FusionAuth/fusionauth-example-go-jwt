@@ -15,5 +15,5 @@ This code uses the go jwt library: https://github.com/golang-jwt/jwt and runs th
 
 ## Environment
 
-Tested on go 1.15.7
+Tested on go 1.15.7 and 1.21.1
 
